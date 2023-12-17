@@ -1,0 +1,18 @@
+{
+  "name": "npm",
+  "version": "1.0.0",
+  "description": "A bot for running tmux commands",
+  "main": "index.js",
+  "scripts": {
+    "start": "node build/app.js",
+    "build": "tsc",
+    "server": "tsc && npm run start"
+  },
+  "keywords": [],
+  "author": "Sebastian Starck",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3"
+  }
+}
