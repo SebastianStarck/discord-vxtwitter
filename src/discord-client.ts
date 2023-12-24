@@ -1,9 +1,32 @@
 import {
   Client,
-  GatewayIntentBits,
+  GatewayIntentBits, Message,
 } from "discord.js";
 
 const TWITTER_FACADE_HOST = 'vxtwitter.com';
+const INSTAGRAM_FACADE_HOST = 'ddinstagram.com';
+
+function checkForTwitterLink(message: Message) {
+  const [match, group] = message.content.match('.*(https://(twitter\.com|x.com)/.*)\s?')
+  if (!match) return;
+  const url = new URL(group);
+  url.host = TWITTER_FACADE_HOST;
+  message.reply({
+    content: url.toString(),
+    allowedMentions: { repliedUser: false }
+  });
+}
+function checkForInstagramLink(message: Message) {
+  const [match, group] = message.content.match('.*(https://instagram/reel/.*)\s?')
+  if (!match) return;
+  const url = new URL(group);
+  url.host = INSTAGRAM_FACADE_HOST;
+  message.reply({
+    content: url.toString(),
+    allowedMentions: { repliedUser: false }
+  });
+  message.suppressEmbeds(true)
+}
 
 export class DiscordClient {
   private client: Client;
@@ -18,14 +41,7 @@ export class DiscordClient {
 
     client.on("messageCreate", message => {
       try {
-        const [match, group] = message.content.match('.*(https://(twitter\.com|x.com)/.*)\s?')
-        if (!match) return;
-        const url = new URL(group);
-        url.host = TWITTER_FACADE_HOST;
-        message.reply({
-          content: url.toString(),
-          allowedMentions: { repliedUser: false }
-        });
+        checkForTwitterLink(message)
       } catch (err) {
         console.log(err);
       }
