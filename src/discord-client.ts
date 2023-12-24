@@ -7,25 +7,28 @@ const TWITTER_FACADE_HOST = 'vxtwitter.com';
 const INSTAGRAM_FACADE_HOST = 'ddinstagram.com';
 
 function checkForTwitterLink(message: Message) {
-  const [match, group] = message.content.match('.*(https://(twitter\.com|x.com)/.*)\s?')
+  const [match, group] = message.content.match('.*(https://(twitter\.com|x.com)/.*)\s?') || [];
   if (!match) return;
+
   const url = new URL(group);
   url.host = TWITTER_FACADE_HOST;
+
   message.reply({
     content: url.toString(),
     allowedMentions: { repliedUser: false }
-  });
+  }).then(() => message.suppressEmbeds(true));
 }
 function checkForInstagramLink(message: Message) {
-  const [match, group] = message.content.match('.*(https://instagram/reel/.*)\s?')
+  const [match, group] = message.content.match('.*(https:\/\/(?:www\.)?instagram\\.com\/reel\/.*)\s?') || [];
   if (!match) return;
+
   const url = new URL(group);
   url.host = INSTAGRAM_FACADE_HOST;
+
   message.reply({
     content: url.toString(),
     allowedMentions: { repliedUser: false }
-  });
-  message.suppressEmbeds(true)
+  }).then(() => message.suppressEmbeds(true));
 }
 
 export class DiscordClient {
@@ -41,7 +44,9 @@ export class DiscordClient {
 
     client.on("messageCreate", message => {
       try {
+        if (!message.content) return console.log('no content')
         checkForTwitterLink(message)
+        checkForInstagramLink(message)
       } catch (err) {
         console.log(err);
       }
