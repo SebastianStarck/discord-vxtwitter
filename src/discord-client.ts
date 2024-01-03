@@ -19,7 +19,7 @@ function checkForTwitterLink(message: Message) {
   }).then(() => message.suppressEmbeds(true));
 }
 function checkForInstagramLink(message: Message) {
-  const [match, group] = message.content.match('.*(https:\/\/(?:www\.)?instagram\\.com\/reel\/.*)\s?') || [];
+  const [match, group] = message.content.match('.*(https:\/\/(?:www\.)?instagram\\.com\/.*)\s?') || [];
   if (!match) return;
 
   const url = new URL(group);
