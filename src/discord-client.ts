@@ -3,27 +3,33 @@ import {
   GatewayIntentBits, Message,
 } from "discord.js";
 
-const TWITTER_FACADE_HOST = 'vxtwitter.com';
-const INSTAGRAM_FACADE_HOST = 'ddinstagram.com';
-
-function checkForTwitterLink(message: Message) {
-  const [match, group] = message.content.match('.*(https://(twitter\.com|x.com)/.*)\s?') || [];
-  if (!match) return;
-
-  const url = new URL(group);
-  url.host = TWITTER_FACADE_HOST;
-
-  message.reply({
-    content: url.toString(),
-    allowedMentions: { repliedUser: false }
-  }).then(() => message.suppressEmbeds(true));
+interface SocialNetwork {
+  pattern: string;
+  host: string;
 }
-function checkForInstagramLink(message: Message) {
-  const [match, group] = message.content.match('.*(https:\/\/(?:www\.)?instagram\\.com\/.*)\s?') || [];
+
+// Match host/username/content to prevent matching profiles
+const socialNetworks: SocialNetwork[] = [
+  {
+    pattern: '.*(https:.*[^vx](twitter.com|x.com)\/.+\/.+\S).*',
+    host: 'vxtwitter.com',
+  },
+  {
+    pattern: '.*(https:.*[^vx]tiktok\.com\/@.*\/.+\S).*',
+    host:  'vxtiktok.com',
+  },
+  {
+    pattern: '.*(https:.*[^d]instagram\\.com.*\\/.+\\/.+\\/).*',
+    host: 'ddinstagram.com',
+  },
+];
+
+function replySocialLinkIfMatches(message: Message, socialNetwork: SocialNetwork) {
+  const [match, group] = message.content.match(socialNetwork.pattern) || [];
   if (!match) return;
 
   const url = new URL(group);
-  url.host = INSTAGRAM_FACADE_HOST;
+  url.host = socialNetwork.host;
 
   message.reply({
     content: url.toString(),
@@ -45,8 +51,7 @@ export class DiscordClient {
     client.on("messageCreate", message => {
       try {
         if (!message.content) return console.log('no content')
-        checkForTwitterLink(message)
-        checkForInstagramLink(message)
+        socialNetworks.forEach(network => replySocialLinkIfMatches(message, network));
       } catch (err) {
         console.log(err);
       }
