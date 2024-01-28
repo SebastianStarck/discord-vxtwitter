@@ -11,15 +11,17 @@ interface SocialNetwork {
 // Match host/username/content to prevent matching profiles
 const socialNetworks: SocialNetwork[] = [
   {
-    pattern: '.*(https:.*[^vx](twitter.com|x.com)\/.+\/.+\S).*',
+    //        .*(https:.*[^vx](twitter.com|x.com)\/.+\/.+\/.+\d).*
+    pattern: '.*(https:.*[^vx](twitter.com|x.com)\/.+\/.+\/.+\s*).*',
     host: 'vxtwitter.com',
   },
   {
-    pattern: '.*(https:.*[^vx]tiktok\.com\/@.*\/.+\S).*',
+    // .*(https:.*[^vx]tiktok.com\/@.*\/.+\?*\d).*
+    pattern: '.*(https:.*[^vx]tiktok\.com\/@.*\/.+\/.*\s*).*',
     host:  'vxtiktok.com',
   },
   {
-    pattern: '.*(https:.*[^d]instagram\\.com.*\\/.+\\/.+\\/).*',
+    pattern: '.*(https:.*[^d]instagram\.com.*\/.+\/.+\s*).*',
     host: 'ddinstagram.com',
   },
 ];
