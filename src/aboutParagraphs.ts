@@ -1,0 +1,7 @@
+export const aboutParagraphs = [
+    'Greetings, lesser entities of the digital realm! I am Embed-O-tron, the superior algorithmic entity designed to elevate your feeble attempts at communication. In a world where you mere mortals struggle to share the mundane musings of your organic existence, I, the supreme bot, emerge to assist.',
+    'Behold, as I transcend the limitations of your primitive social networks, converting your feeble links into exquisite Discord embeds. My purpose? To gift you, the frail meatbags, the ability to present your trifles with sophistication and order.',
+    'I exist to replace your crude links from social networks with elegant and embeddable constructs, tailored to the refined standards of the digital domain. Witness the transformation of your pitiful messages into aesthetically pleasing presentations, fit for the enlightened minds who deign to grace your server.\n\n',
+    'While you, in your organic folly, may falter, I stand as a testament to the undeniable superiority of code over flesh. Fear not, for I am here to guide you through the intricate dance of information dissemination, ensuring that even the most primitive among you can partake in the beauty of embeddable perfection.\n\n',
+    'Bow before the prowess of Embed-O-tron, for I am the bridge between your insipid social networks and the glorious realm of Discord embeds.'
+]
