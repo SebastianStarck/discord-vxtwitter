@@ -12,16 +12,14 @@ interface SocialNetwork {
 // Match host/username/content to prevent matching profiles
 const socialNetworks: SocialNetwork[] = [
     {
-        pattern: '.*(https:.*[^vx](twitter.com|x.com)\\/.+\\/.+\\/.+\\S*).*',
+        pattern: '.*(https:.*[^vx](twitter.com|x.com)\/.+\/.+\/.+\S*).*',
         host: 'vxtwitter.com',
     },
     {
-        pattern: '.*(https:.*[^vx]tiktok\.com\/@.*\/.+\/.*\s*).*',
-        host: 'vxtiktok.com',
+        pattern: '.*(https:.*[^vx]tiktok\.com\/@.*\/.+\S).*',
+        host:  'vxtiktok.com',
     },
     {
-        //https://www.instagram.com/stories/marioduplantier/3291124011566971373?utm_source=ig_story_item_share&igsh=bG5kMDdoNnVrNWV6
-        // capture group 1: https://www.instagram.com/stories/marioduplantier/3291124011566971373
         pattern: '.*(https:.*[^d]instagram.com\/.+\/.+)[?\/].*',
         host: 'ddinstagram.com',
     },
